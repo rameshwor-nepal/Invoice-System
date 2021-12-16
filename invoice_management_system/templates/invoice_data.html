@@ -1,0 +1,144 @@
+<html>
+    <head>
+            <style>
+                    .table-head{
+                        padding:20px 20px 20px 30px;
+
+                    }
+                    .success{
+     list-style: none;
+     background-color: #81f072;
+     color: white;
+     box-shadow: 2px 2px 2px #969696;
+     text-align: center;
+ }
+            </style>
+    </head>
+
+
+
+<body>
+
+
+<h1> Invoice Data</h1>
+
+{% if messages %}
+
+
+<ul class="messages">
+       {% for message in messages %}
+             <li {% if message.tags %} class="{{ message.tags }}"{% endif %}>{{ message }}</li>
+       {% endfor %}
+</ul>
+
+
+
+{% endif %}
+
+
+<form method='POST' action=''>
+    
+    {% csrf_token %}
+
+    {{ form.as_p }}
+
+        <input type="submit" value='Search'/>
+</form>
+
+<a href="{% url 'add' %}">
+    <input type="button" value="Add" style="margin-left: 40rem;">
+</a>
+
+<br>
+
+<div>
+    <table >
+        <thead style="background-color:rgb(219, 103, 103)">
+            <tr >
+                <th class="table-head">
+                    Invoice Id
+                </th>
+                <th class="table-head">
+                   Customer Name
+                </th>
+                <th class="table-head">
+                    Address
+                </th>
+                <th class="table-head">
+                    Phone Number
+                </th>
+                <th class="table-head">
+                    Total Amount
+                </th>
+                <th class="table-head">
+                    Invoice Date
+                </th>
+                <th class="table-head">
+                    Paid
+                </th>
+                <th class="table-head">
+                    Invoice Type
+                </th>
+                <th class="table-head">
+                    Action
+                </th>
+            </tr>
+        </thead>
+  
+    {% for invoice in invoice %}
+    <tr>
+   <th class="table-head">
+      
+            {{ invoice.invoice_id }} 
+    
+    </th>
+
+        <th class="table-head">
+
+            {{ invoice.name }}
+    
+        </th> 
+
+
+        <th class="table-head">
+            {{ invoice.address }}
+        </th>
+        <th class="table-head">
+            {{ invoice.phone_number }}
+        </th>
+        <th class="table-head">
+            {{ invoice.total }}
+        </th>
+        
+        <th class="table-head">
+            {{ invoice.invoice_date }}
+        </th>
+        <th class="table-head">
+            {{ invoice.paid }}
+        </th>
+        <th class="table-head">
+            {{ invoice.invoice_type }}
+        </th>
+
+<th class="table-head">
+  
+    <a href="{% url 'update' invoice.invoice_id %}">
+         <input type="button" value="Update">
+    </a>
+    
+    
+    <a href="{% url 'delete' invoice.invoice_id %}">
+        <input type="button" value="Delete" style="margin-left: 20px;">
+    </a>
+
+</th>
+
+
+    </tr> 
+    {% endfor %} 
+</table>
+</div>
+
+</body>
+
+</html>
